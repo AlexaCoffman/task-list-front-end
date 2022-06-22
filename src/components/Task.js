@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Task.css';
@@ -6,18 +6,21 @@ import './Task.css';
 const Task = ({ id, title, isComplete, onUpdateTask }) => {
   // const [complete, setComplete] = useState(isComplete);
   const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
-  const onCompleteButtonClick = () => {
-    console.log('Button has been clicked!');
-    const updatedTask = {
-      id: id,
-      title: title,
-      isComplete: !isComplete,
-    };
-    onUpdateTask(updatedTask);
-  };
+  // const onCompleteButtonClick = () => {
+  //   console.log('Button has been clicked!');
+  //   const updatedTask = {
+  //     id: id,
+  //     title: title,
+  //     isComplete: !isComplete,
+  //   };
+  //   onUpdateTask(updatedTask);
+  // };
+  const onCompleteButtonClick = ()=>{
+    onUpdateTask(id)
+  }
 
   return (
-    <li className="tasks__item">
+    <li className="tasks__item" key={id}>
       <button
         className={`tasks__item__toggle ${buttonClass}`}
         onClick={onCompleteButtonClick}
@@ -32,7 +35,7 @@ const Task = ({ id, title, isComplete, onUpdateTask }) => {
 Task.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  isComplete: PropTypes.bool,
   onUpdateTask: PropTypes.func.isRequired,
 };
 
