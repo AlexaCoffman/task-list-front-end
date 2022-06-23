@@ -73,6 +73,22 @@ const App = () => {
   //   });
   //   setTaskData(updatedTasks);
   // };
+  const deleteTask = (id) => {
+    axios
+      .delete(`${URL}/${id}`)
+      .then(() => {
+        const newTasks = [];
+        for (const task of taskData) {
+          if (task.id !== id) {
+            newTasks.push(task);
+          }
+        }
+        setTaskData(newTasks);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="App">
@@ -82,7 +98,9 @@ const App = () => {
       <main>
         <div>{<TaskList
         tasks={taskData}
-        onUpdateTask={markComplete} />}</div>
+        onUpdateTask={markComplete} 
+        onDeleteTask={deleteTask}
+        />}</div>
       </main>
     </div>
   );
